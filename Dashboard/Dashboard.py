@@ -12,9 +12,15 @@ st.write("ID Dicoding: aleailearn")
 
 
 
-#BABABABAB
+# Membagi data menjadi hari kerja dan hari libur
+df_workingday = df_day[df_day['workingday'] == 1]
+df_holiday = df_day[df_day['workingday'] == 0]
 
-# Menghitung rata-rata suhu dan jumlah penyewaan langsung, tanpa groupby
+# Memastikan data tidak ada nilai NaN pada kolom temp dan cnt
+df_workingday = df_workingday.dropna(subset=['temp', 'cnt'])
+df_holiday = df_holiday.dropna(subset=['temp', 'cnt'])
+
+# Menghitung rata-rata suhu dan jumlah penyewaan
 mean_workingday = df_workingday[['temp', 'cnt']].mean()
 mean_holiday = df_holiday[['temp', 'cnt']].mean()
 
