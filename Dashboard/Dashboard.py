@@ -13,5 +13,29 @@ st.write("ID Dicoding: aleailearn")
 # Exploratory Data Analysis (EDA)
 st.title("Exploratory Data Analysis (EDA)")
 
-Data/day.csv.sample(frac=1) # Sample all rows (100%) from the DataFrame
+# Sample data for demonstration
+df_day = pd.read_csv('path_to_your_dataset.csv')
 
+# Random sampling of all rows
+df_day_sample = df_day.sample(frac=1)
+
+# Descriptive statistics for DAY
+st.subheader('Descriptive Statistics for DAY Data')
+day_stats = df_day_sample.describe(include='all')
+st.write(day_stats)
+
+# Plot histograms for 'temp', 'atemp', 'hum', 'windspeed', and 'cnt' columns
+st.subheader('Histograms of Selected Features')
+fig, ax = plt.subplots(figsize=(10, 8))
+df_day_sample[['temp', 'atemp', 'hum', 'windspeed', 'cnt']].hist(bins=30, ax=ax)
+plt.suptitle('Histogram of DAY Data')
+st.pyplot(fig)
+
+# Plot histogram with seaborn for 'cnt' column
+st.subheader('Distribusi Kolom cnt')
+fig2, ax2 = plt.subplots(figsize=(8, 6))
+sns.histplot(df_day_sample['cnt'], kde=True, ax=ax2)
+ax2.set_title('Distribusi Kolom cnt')
+ax2.set_xlabel('Jumlah Penyewaan (cnt)')
+ax2.set_ylabel('Frekuensi')
+st.pyplot(fig2)
