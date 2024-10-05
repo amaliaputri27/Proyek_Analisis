@@ -105,7 +105,7 @@ import streamlit as st
 df_day = pd.read_csv('Data/day.csv')
 
     # Menambahkan offset untuk membuat bar bersanding
-    bar_width = 0.35  # Lebar
+    width_bar = 0.35  # Lebar bar
     index = np.arange(2)  # Indeks posisi untuk kategori
 
     # Bar plot untuk hari kerja dan hari libur
@@ -188,7 +188,7 @@ import streamlit as st
 
 # Load the dataset
 df = pd.read_csv("Data/day.csv")  # Make sure to specify the correct path to your CSV file
-df = pd.read_csv("Data/hour.csv") 
+df = pd.read_csv("Data/hour.csv")
 
 # Check if the 'holiday' column exists in the DataFrame
 if 'holiday' not in df.columns:
@@ -230,4 +230,3 @@ else:
     st.write("Dari visualisasi di atas, kita dapat menarik beberapa kesimpulan:")
     st.write("- Rata-Rata Suhu: Rata-rata suhu pada hari kerja dan hari libur dapat berbeda secara signifikan. Perhatikan apakah hari libur memiliki suhu yang lebih tinggi atau lebih rendah.")
     st.write("- Rata-Rata Jumlah Sewa: Rata-rata jumlah sewa pada hari kerja mungkin lebih tinggi dibandingkan dengan hari libur atau sebaliknya. Ini bisa mengindikasikan pengaruh suhu terhadap perilaku penyewa, di mana suhu yang lebih tinggi mungkin meningkatkan jumlah sewa, baik pada hari kerja maupun hari libur.")
-
