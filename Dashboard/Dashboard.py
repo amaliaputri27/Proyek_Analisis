@@ -275,3 +275,58 @@ else:
     st.write("- Rata-Rata Suhu: Rata-rata suhu pada hari kerja dan hari libur dapat berbeda secara signifikan. Perhatikan apakah hari libur memiliki suhu yang lebih tinggi atau lebih rendah.")
     st.write("- Rata-Rata Jumlah Sewa: Rata-rata jumlah sewa pada hari kerja mungkin lebih tinggi dibandingkan dengan hari libur atau sebaliknya. Ini bisa mengindikasikan pengaruh suhu terhadap perilaku penyewa, di mana suhu yang lebih tinggi mungkin meningkatkan jumlah sewa, baik pada hari kerja maupun hari libur.")
 
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import streamlit as st
+
+# Menjawab pertanyaan 2
+st.write("Pertanyaan 2: Strategi marketing apa yang dapat diterapkan untuk meningkatkan jumlah pengguna (cnt) pada hari kerja ketika kondisi cuaca buruk?")
+
+# Definisikan ambang untuk kondisi cuaca buruk
+bad_weather_threshold_temp = 0.3  # Misalnya, suhu di bawah 0.3
+bad_weather_threshold_weathersit = 2  # Kategorikan kondisi cuaca 2 (hujan)
+
+# Ambil data hari kerja dengan kondisi cuaca buruk
+bad_weather_workdays_df = df[(df['workingday'] == 1) &
+                             (df['temp'] < bad_weather_threshold_temp) &
+                             (df['weathersit'] >= bad_weather_threshold_weathersit)]
+
+# Menampilkan data yang telah difilter
+st.write("Data Hari Kerja dengan Cuaca Buruk:")
+st.write(bad_weather_workdays_df.head())
+
+# Membuat visualisasi
+fig, ax = plt.subplots(figsize=(12, 6))
+sns.lineplot(data=bad_weather_workdays_df, x='dteday', y='cnt', marker='o', color='orange', ax=ax)
+ax.set_title('Jumlah Sewa pada Hari Kerja dengan Cuaca Buruk')
+ax.set_xlabel('Tanggal')
+ax.set_ylabel('Jumlah Sewa (cnt)')
+plt.xticks(rotation=45)
+plt.tight_layout()
+
+# Menampilkan plot di Streamlit
+st.pyplot(fig)
+
+# Analisis Jumlah Sewa
+average_cnt = bad_weather_workdays_df['cnt'].mean()
+max_cnt = bad_weather_workdays_df['cnt'].max()
+min_cnt = bad_weather_workdays_df['cnt'].min()
+
+# Menampilkan hasil analisis
+st.write(f"Rata-rata jumlah sewa pada hari kerja dengan cuaca buruk: {average_cnt:.2f}")
+st.write(f"Jumlah sewa maksimum: {max_cnt}")
+st.write(f"Jumlah sewa minimum: {min_cnt}")
+
+# Menjawab pertanyaan 2
+st.write("Berdasarkan analisis ini, saya memberikan beberapa strategi marketing yang dapat diterapkan untuk meningkatkan jumlah pengguna pada hari kerja ketika cuaca buruk dapat mencakup:")
+
+st.write("1. Promosi Diskon untuk Hari Buruk: Tawarkan diskon khusus atau penawaran khusus untuk pengguna yang menyewa pada hari-hari dengan kondisi cuaca buruk.")
+
+st.write("2. Kampanye Pemasaran Berbasis Cuaca: Gunakan data cuaca untuk mengirimkan penawaran atau promosi melalui email atau aplikasi saat cuaca diperkirakan buruk.")
+
+st.write("3. Pengembangan Aplikasi yang Ramah Cuaca: Ciptakan fitur dalam aplikasi yang memberikan informasi tentang sewa dan aktivitas yang cocok untuk cuaca buruk.")
+
+st.write("4. Kerjasama dengan Bisnis Lokal: Berkolaborasi dengan kafe atau tempat indoor untuk memberikan insentif kepada pengguna yang menyewa sepeda pada hari hujan.")
+
+st.write("5. Strategi Pengiklanan: Fokus pada iklan yang menyoroti bagaimana menggunakan sepeda bisa menjadi solusi alternatif untuk tetap aktif bahkan ketika cuaca kurang baik.")
