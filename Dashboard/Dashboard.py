@@ -103,7 +103,7 @@ import seaborn as sns
 import streamlit as st
 
 # Load the dataset
-df = pd.read_csv("Data/day.csv")  # Make sure to specify the correct path to your CSV file
+df = pd.read_csv("Data/day.csv")  # Ensure the correct path to your CSV file
 
 # Menghitung rata-rata suhu dan jumlah sewa
 summary_df = df.groupby('holiday').agg({'temp': 'mean', 'cnt': 'mean'}).reset_index()
@@ -169,7 +169,6 @@ if 'holiday' not in df.columns:
 else:
     # Set style
     sns.set(style="whitegrid")
-
 
 import pandas as pd
 import matplotlib.pyplot as plt
