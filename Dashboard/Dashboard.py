@@ -21,7 +21,7 @@ df_day_sample = df_day.sample(frac=1)
 
 # Descriptive statistics for DAY
 st.subheader('Descriptive Statistics for day data')
-sr.write("Statistika deskriptif dilakukan untuk memahami karakteristik data, termasuk ukuran pusat, penyebaran, dan pola."
+sr.write("Statistika deskriptif dilakukan untuk memahami karakteristik data, termasuk ukuran pusat, penyebaran, dan pola.")
 day_stats = df_day_sample.describe(include='all')
 st.write(day_stats)
 
