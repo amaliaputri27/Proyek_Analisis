@@ -44,8 +44,11 @@ ax2.set_ylabel('Frekuensi')
 st.pyplot(fig2)
 
 #BATAS
+# Memastikan hanya kolom numerik yang dipilih untuk korelasi
+df_day_numeric = df_day.select_dtypes(include=[np.number])
+
 # Korelasi untuk DAY
-day_corr = df_day.corr()
+day_corr = df_day_numeric.corr()
 plt.figure(figsize=(10, 8))
 sns.heatmap(day_corr, annot=True, fmt=".2f", cmap='coolwarm')
 plt.title('Correlation Heatmap for DAY Data')
