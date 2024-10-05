@@ -28,8 +28,7 @@ st.write(day_stats)
 # Histogram
 # Plot histograms for 'temp', 'atemp', 'hum', 'windspeed', and 'cnt' columns
 st.subheader('Histograms of Selected Features')
-sr.write("Analisis histogram dan KDE (Kernel Density Estimation) untuk kolom 'cnt' (jumlah penyewaan) ini membantu dalam pengambilan keputusan strategis berdasarkan pola distribusi jumlah penyewaan.
-")
+sr.write("Analisis histogram dan KDE (Kernel Density Estimation) untuk kolom 'cnt' (jumlah penyewaan) ini membantu dalam pengambilan keputusan strategis berdasarkan pola distribusi jumlah penyewaan.")
 fig, ax = plt.subplots(figsize=(10, 8))
 df_day_sample[['temp', 'atemp', 'hum', 'windspeed', 'cnt']].hist(bins=30, ax=ax)
 plt.suptitle('Histogram of DAY Data')
