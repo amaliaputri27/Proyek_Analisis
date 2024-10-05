@@ -95,7 +95,6 @@ plt.xlabel('Suhu (temp)')
 plt.ylabel('Jumlah Penyewaan (cnt)')
 st.pyplot(plt)
 
-
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -104,9 +103,6 @@ import streamlit as st
 
 # Memuat data
 df_day = pd.read_csv('Data/day.csv')
-
-    # Asumsikan df adalah DataFrame yang telah dimuat dengan data
-    # df = pd.read_csv("your_data.csv") # Uncomment this line to load your dataset
 
     # Memisahkan data menjadi hari kerja dan hari libur
 if 'workingday' not in df_day.columns:
@@ -125,7 +121,6 @@ else:
 
     # Menampilkan DataFrame summary
     st.write(summary_df)
-
 
     # Menambahkan offset untuk membuat bar bersanding
     bar_width = 0.35  # Lebar bar
@@ -185,7 +180,6 @@ else:
 
     # Set style
     sns.set(style="whitegrid")
-
 
 import pandas as pd
 import matplotlib.pyplot as plt
