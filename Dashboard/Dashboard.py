@@ -12,11 +12,11 @@ st.write("ID Dicoding: aleailearn")
 
 # Memuat Data
 st.write("Gathering Data")
-data = pd.read_csv('Bangkit7/day.csv')
+data = pd.read_csv('Data/day.csv')
 
 # Memuat data dari kedua CSV
-df_day = pd.read_csv('data/day.csv')
-df_hour = pd.read_csv('data/hour.csv')
+df_day = pd.read_csv('Data/day.csv')
+df_hour = pd.read_csv('Data/hour.csv')
 
 # Menggabungkan data berdasarkan kolom 'dteday'
 df_merged = pd.merge(df_day, df_hour, on='dteday')
