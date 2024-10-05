@@ -95,6 +95,99 @@ plt.xlabel('Suhu (temp)')
 plt.ylabel('Jumlah Penyewaan (cnt)')
 st.pyplot(plt)
 
+import streamlit as st
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
+
+# Menghitung rata-rata suhu dan jumlah penyewaan per kategori
+mean_workingday = df_workingday.groupby('workingday')[['temp', 'cnt']].mean().reset_index()
+mean_holiday = df_holiday.groupby('workingday')[['temp', 'cnt']].mean().reset_index()
+
+# Set style
+sns.set(style="whitegrid")
+
+# Menambahkan offset untuk membuat bar bersanding
+bar_width = 0.35  # Lebar bar
+index = np.arange(2)  # Indeks posisi untuk kategori
+
+# Bar plot untuk hari kerja
+fig, ax1 = plt.subplots(figsize=(10, 6))
+
+# Plot untuk 'cnt' (Jumlah Penyewaan) dengan warna biru
+bars1 = ax1.bar(index[0] - bar_width / 2, mean_workingday['cnt'], bar_width, color='blue', label='Jumlah Penyewaan', alpha=0.6)
+
+# Membuat sumbu y kedua untuk 'temp' (Suhu)
+ax2 = ax1.twinx()
+bars2 = ax2.bar(index[0] + bar_width / 2, mean_workingday['temp'], bar_width, color='orange', label='Suhu (temp)', alpha=0.9)
+
+# Menambahkan label, judul, dan legend
+ax1.set_xlabel('Hari Kerja', fontsize=14)
+ax1.set_ylabel('Jumlah Penyewaan', fontsize=14)
+ax2.set_ylabel('Suhu (temp)', fontsize=14)
+plt.title('Rata-rata Suhu dan Jumlah Penyewaan pada Hari Kerja', fontsize=16)
+
+# Modifikasi label pada sumbu x
+ax1.set_xticks(index)  # Set tick positions
+ax1.set_xticklabels(['Hari Libur', 'Hari Kerja'])  # Set tick labels
+
+# Menambahkan legend
+ax1.legend(loc='upper left')
+ax2.legend(loc='upper right')
+
+# Menambahkan nilai pada bar
+for bar in bars1:
+    yval = bar.get_height()
+    ax1.text(bar.get_x() + bar.get_width() / 2, yval, int(yval), ha='center', va='bottom')
+
+for bar in bars2:
+    yval = bar.get_height()
+    ax2.text(bar.get_x() + bar.get_width() / 2, yval, int(yval), ha='center', va='bottom')
+
+# Tampilkan plot di Streamlit
+st.pyplot(fig)
+
+# Bar plot untuk hari libur
+fig, ax1 = plt.subplots(figsize=(10, 6))
+
+# Plot untuk 'cnt' (Jumlah Penyewaan) dengan warna biru
+bars1 = ax1.bar(index[1] - bar_width / 2, mean_holiday['cnt'], bar_width, color='blue', label='Jumlah Penyewaan', alpha=0.6)
+
+# Membuat sumbu y kedua untuk 'temp' (Suhu)
+ax2 = ax1.twinx()
+bars2 = ax2.bar(index[1] + bar_width / 2, mean_holiday['temp'], bar_width, color='orange', label='Suhu (temp)', alpha=0.9)
+
+# Menambahkan label, judul, dan legend
+ax1.set_xlabel('Hari Libur', fontsize=14)
+ax1.set_ylabel('Jumlah Penyewaan', fontsize=14)
+ax2.set_ylabel('Suhu (temp)', fontsize=14)
+plt.title('Rata-rata Suhu dan Jumlah Penyewaan pada Hari Libur', fontsize=16)
+
+# Modifikasi label pada sumbu x
+ax1.set_xticks(index)  # Set tick positions
+ax1.set_xticklabels(['Hari Libur', 'Hari Kerja'])  # Set tick labels
+
+# Menambahkan legend
+ax1.legend(loc='upper left')
+ax2.legend(loc='upper right')
+
+# Menambahkan nilai pada bar
+for bar in bars1:
+    yval = bar.get_height()
+    ax1.text(bar.get_x() + bar.get_width() / 2, yval, int(yval), ha='center', va='bottom')
+
+for bar in bars2:
+    yval = bar.get_height()
+    ax2.text(bar.get_x() + bar.get_width() / 2, yval, int(yval), ha='center', va='bottom')
+
+# Tampilkan plot di Streamlit
+st.pyplot(fig)
+
+import streamlit as st
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
+
 # Menjawab pertanyaan 1
 st.subheader('Visualization & Explanatory Analysis')
 st.write("Pertanyaan 1: Bagaimana pengaruh suhu (temp) terhadap jumlah total sewa (cnt) pada hari kerja dibandingkan dengan hari libur?")
