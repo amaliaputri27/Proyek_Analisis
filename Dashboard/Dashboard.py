@@ -106,7 +106,6 @@ import streamlit as st
 df_day = pd.read_csv('Data/day.csv')
 
     # Asumsikan df adalah DataFrame yang telah dimuat dengan data
-
     # Memisahkan data menjadi hari kerja dan hari libur
 if 'workingday' not in df_day.columns:
     st.error("Kolom 'workingday' tidak ditemukan dalam DataFrame.")
