@@ -104,24 +104,6 @@ import streamlit as st
 # Memuat data
 df_day = pd.read_csv('Data/day.csv')
 
-    # Memisahkan data menjadi hari kerja dan hari libur
-if 'workingday' not in df_day.columns:
-    st.error("Kolom 'workingday' tidak ditemukan dalam DataFrame.")
-else:
-    df_workingday = df_day[df_day['workingday'] == 1]
-    df_holiday = df_day[df_day['workingday'] == 0]
-
-    # Menghitung rata-rata suhu dan jumlah penyewaan per kategori
-    mean_workingday = df_workingday[['temp', 'cnt']].mean()
-    mean_holiday = df_holiday[['temp', 'cnt']].mean()
-
-    # Menghitung rata-rata suhu dan jumlah sewa
-    summary_df = df_day.groupby('workingday').agg({'temp': 'mean', 'cnt': 'mean'}).reset_index()
-    summary_df['workingday'] = summary_df['workingday'].map({0: 'Hari Libur', 1: 'Hari Kerja'})
-
-    # Menampilkan DataFrame summary
-    st.write(summary_df)
-
     # Menambahkan offset untuk membuat bar bersanding
     bar_width = 0.35  # Lebar bar
     index = np.arange(2)  # Indeks posisi untuk kategori
@@ -180,6 +162,24 @@ else:
 
     # Set style
     sns.set(style="whitegrid")
+
+    # Memisahkan data menjadi hari kerja dan hari libur
+if 'workingday' not in df_day.columns:
+    st.error("Kolom 'workingday' tidak ditemukan dalam DataFrame.")
+else:
+    df_workingday = df_day[df_day['workingday'] == 1]
+    df_holiday = df_day[df_day['workingday'] == 0]
+
+    # Menghitung rata-rata suhu dan jumlah penyewaan per kategori
+    mean_workingday = df_workingday[['temp', 'cnt']].mean()
+    mean_holiday = df_holiday[['temp', 'cnt']].mean()
+
+    # Menghitung rata-rata suhu dan jumlah sewa
+    summary_df = df_day.groupby('workingday').agg({'temp': 'mean', 'cnt': 'mean'}).reset_index()
+    summary_df['workingday'] = summary_df['workingday'].map({0: 'Hari Libur', 1: 'Hari Kerja'})
+
+    # Menampilkan DataFrame summary
+    st.write(summary_df)
 
 import pandas as pd
 import matplotlib.pyplot as plt
