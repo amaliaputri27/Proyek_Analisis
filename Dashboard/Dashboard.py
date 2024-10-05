@@ -14,15 +14,19 @@ st.write("ID Dicoding: aleailearn")
 st.write("Gathering Data")
 data = pd.read_csv('Data/day.csv')
 
-# Memuat data dari kedua CSV
+# Memuat kedua data CSV
 df_day = pd.read_csv('Data/day.csv')
 df_hour = pd.read_csv('Data/hour.csv')
 
+# Menampilkan info singkat tentang dataset
+st.write("Data Day")
+st.write(df_day.head())
+
+st.write("Data Hour")
+st.write(df_hour.head())
+
 # Menggabungkan data berdasarkan kolom 'dteday'
 df_merged = pd.merge(df_day, df_hour, on='dteday')
-
-# Menampilkan beberapa baris pertama data yang digabungkan
-print(df_merged.head())
 
 st.write("Assesing Data")
 # Menilai data df_day
