@@ -167,7 +167,8 @@ import seaborn as sns
 import streamlit as st
 
 # Load the dataset
-df = pd.read_csv("your_data.csv")  # Make sure to specify the correct path to your CSV file
+df = pd.read_csv("Data/day.csv")  # Make sure to specify the correct path to your CSV file
+df = pd.read_csv("Data/hour.csv") 
 
 # Check if the 'holiday' column exists in the DataFrame
 if 'holiday' not in df.columns:
