@@ -14,7 +14,7 @@ st.write("ID Dicoding: aleailearn")
 st.title("Exploratory Data Analysis (EDA)")
 
 # Sample data for demonstration
-df_day = pd.read_csv('path_to_your_dataset.csv')
+df_day = pd.read_csv('Data/day.csv')
 
 # Random sampling of all rows
 df_day_sample = df_day.sample(frac=1)
