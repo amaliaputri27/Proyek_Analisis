@@ -107,7 +107,7 @@ df_day = pd.read_csv('Data/day.csv')
 
 # Menjawab pertanyaan 1
 st.subheader('Visualization & Explanatory Analysis')
-st.write("Pertanyaan 1: "Bagaimana pengaruh suhu (temp) terhadap jumlah total sewa (cnt) pada hari kerja dibandingkan dengan hari libur?"")
+st.write("Pertanyaan 1: Bagaimana pengaruh suhu (temp) terhadap jumlah total sewa (cnt) pada hari kerja dibandingkan dengan hari libur?")
 
 # Pastikan kolom 'workingday' ada
 if 'workingday' not in df_day.columns:
