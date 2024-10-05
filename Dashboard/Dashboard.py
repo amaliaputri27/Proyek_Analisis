@@ -102,15 +102,26 @@ import seaborn as sns
 import streamlit as st
 
 # Load the dataset
-df = pd.read_csv("your_data.csv")  # Make sure to specify the correct path to your CSV file
+df = pd.read_csv("Data/day.csv")  # Make sure to specify the correct path to your CSV file
 
 # Check if the 'holiday' column exists in the DataFrame
 if 'holiday' not in df.columns:
     st.error("Kolom 'holiday' tidak ditemukan dalam DataFrame.")
 else:
     # Memisahkan data berdasarkan hari kerja dan hari libur
-    workdays_df = df_day[df_day['holiday'] == 1]
-    holidays_df = df_day[df_day['holiday'] == 0]
+    workdays_df = df[df['holiday'] == 0]  # Assuming 0 is for workdays
+    holidays_df = df[df['holiday'] == 1]   # Assuming 1 is for holidays
+
+    # You can continue with further analysis here
+    mean_workingday = workdays_df[['temp', 'cnt']].mean()
+    mean_holiday = holidays_df[['temp', 'cnt']].mean()
+
+    # You can add more visualizations and analyses here
+    st.write("Mean on working days:", mean_workingday)
+    st.write("Mean on holidays:", mean_holiday)
+
+    # Further code for plotting, etc.
+
 
     # Menghitung rata-rata suhu dan jumlah sewa
     summary_df = df.groupby('holiday').agg({'temp': 'mean', 'cnt': 'mean'}).reset_index()
