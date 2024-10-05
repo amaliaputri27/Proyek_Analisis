@@ -10,6 +10,9 @@ st.write("Nama: Amalia Putri")
 st.write("Email: m384b4kx0446@bangkit.academy")
 st.write("ID Dicoding: aleailearn")
 
+# Exploratory Data Analysis (EDA)
+st.title("Exploratory Data Analysis (EDA)")
+
 # Sample data for demonstration
 df_day = pd.read_csv('Data/day.csv')
 
@@ -18,14 +21,15 @@ df_day_sample = df_day.sample(frac=1)
 
 # Descriptive statistics for DAY
 st.subheader('Descriptive Statistics for day data')
+sr.write("Statistika deskriptif dilakukan untuk memahami karakteristik data, termasuk ukuran pusat, penyebaran, dan pola."
 day_stats = df_day_sample.describe(include='all')
 st.write(day_stats)
 
-# Exploratory Data Analysis (EDA)
-st.title("Exploratory Data Analysis (EDA)")
-
+# Histogram
 # Plot histograms for 'temp', 'atemp', 'hum', 'windspeed', and 'cnt' columns
 st.subheader('Histograms of Selected Features')
+sr.write("Analisis histogram dan KDE (Kernel Density Estimation) untuk kolom 'cnt' (jumlah penyewaan) ini membantu dalam pengambilan keputusan strategis berdasarkan pola distribusi jumlah penyewaan.
+")
 fig, ax = plt.subplots(figsize=(10, 8))
 df_day_sample[['temp', 'atemp', 'hum', 'windspeed', 'cnt']].hist(bins=30, ax=ax)
 plt.suptitle('Histogram of DAY Data')
