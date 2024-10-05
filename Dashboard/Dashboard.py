@@ -94,3 +94,52 @@ plt.title('Hubungan antara Suhu (temp) dan Jumlah Penyewaan (cnt) pada Hari Libu
 plt.xlabel('Suhu (temp)')
 plt.ylabel('Jumlah Penyewaan (cnt)')
 st.pyplot(plt)
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import streamlit as st
+
+# Memuat data
+df_day = pd.read_csv('Data/day.csv')
+
+    # Menambahkan offset untuk membuat bar bersanding
+    bar_width = 0.35  # Lebar bar
+    index = np.arange(2)  # Indeks posisi untuk kategori
+
+    # Bar plot untuk hari kerja dan hari libur
+    fig, ax1 = plt.subplots(figsize=(10, 6))
+
+    # Plot untuk 'cnt' (Jumlah Penyewaan) dengan warna biru
+    bars1 = ax1.bar(index[0] - bar_width / 2, mean_holiday['cnt'], bar_width, color='blue', label='Jumlah Penyewaan (Hari Libur)', alpha=0.6)
+    bars2 = ax1.bar(index[1] - bar_width / 2, mean_workingday['cnt'], bar_width, color='green', label='Jumlah Penyewaan (Hari Kerja)', alpha=0.6)
+
+    # Membuat sumbu y kedua untuk 'temp' (Suhu)
+    ax2 = ax1.twinx()
+    ax2.bar(index[0] + bar_width / 2, mean_holiday['temp'], bar_width, color='orange', label='Suhu (Hari Libur)', alpha=0.9)
+    ax2.bar(index[1] + bar_width / 2, mean_workingday['temp'], bar_width, color='red', label='Suhu (Hari Kerja)', alpha=0.9)
+
+    # Menambahkan label, judul, dan legend
+    plt.title('Rata-rata Suhu dan Jumlah Penyewaan pada Hari Kerja dan Hari Libur', fontsize=16)
+    ax1.set_xlabel('Kategori', fontsize=14)
+    ax1.set_ylabel('Jumlah Penyewaan', fontsize=14)
+    ax2.set_ylabel('Suhu (temp)', fontsize=14)
+
+    # Modifikasi label pada sumbu x
+    ax1.set_xticks(index)  # Set tick positions
+    ax1.set_xticklabels(['Hari Libur', 'Hari Kerja'])  # Set tick labels
+
+    # Menambahkan legend
+    ax1.legend(loc='upper left')
+    ax2.legend(loc='upper right')
+
+    # Menambahkan nilai pada bar
+    for bar in bars1 + bars2:
+        yval = bar.get_height()
+        ax1.text(bar.get_x() + bar.get_width() / 2, yval, int(yval), ha='center', va='bottom')
+
+    # Tampilkan plot di Streamlit
+    st.subheader('Explore mean() methode df_day & df_hour')
+    st.write("Dengan melakukan analisis ini, pengelola layanan penyewaan sepeda dapat merancang strategi yang lebih baik berdasarkan data. Misalnya, jika jumlah penyewaan meningkat pada hari kerja saat suhu naik, mereka mungkin ingin melakukan promosi khusus pada hari-hari tersebut untuk menarik lebih banyak pelanggan.")
+    st.pyplot(fig)
