@@ -48,6 +48,8 @@ st.pyplot(fig2)
 df_day_numeric = df_day.select_dtypes(include=[np.number])
 
 # Korelasi untuk DAY
+st.subheader('Analisis Korelasi')
+st.write("Secara keseluruhan, analisis korelasi ini memberikan pemahaman mendalam tentang faktor-faktor yang mempengaruhi jumlah penyewaan sepeda, serta bagaimana memanfaatkan wawasan ini untuk strategi bisnis yang lebih baik.")
 day_corr = df_day_numeric.corr()
 plt.figure(figsize=(10, 8))
 sns.heatmap(day_corr, annot=True, fmt=".2f", cmap='coolwarm')
