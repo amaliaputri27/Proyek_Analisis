@@ -10,6 +10,12 @@ st.write("Nama: Amalia Putri")
 st.write("Email: m384b4kx0446@bangkit.academy")
 st.write("ID Dicoding: aleailearn")
 
+# Sample data for demonstration
+df_day = pd.read_csv('Data/day.csv')
+
+# Random sampling of all rows
+df_day_sample = df_day.sample(frac=1)
+
 # Descriptive statistics for DAY
 st.subheader('Descriptive Statistics for day data')
 day_stats = df_day_sample.describe(include='all')
@@ -17,12 +23,6 @@ st.write(day_stats)
 
 # Exploratory Data Analysis (EDA)
 st.title("Exploratory Data Analysis (EDA)")
-
-# Sample data for demonstration
-df_day = pd.read_csv('Data/day.csv')
-
-# Random sampling of all rows
-df_day_sample = df_day.sample(frac=1)
 
 # Plot histograms for 'temp', 'atemp', 'hum', 'windspeed', and 'cnt' columns
 st.subheader('Histograms of Selected Features')
