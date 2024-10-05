@@ -112,10 +112,6 @@ else:
     workdays_df = df[df['holiday'] == 0]  # Assuming 0 is for workdays
     holidays_df = df[df['holiday'] == 1]   # Assuming 1 is for holidays
 
-    # You can continue with further analysis here
-    mean_workingday = workdays_df[['temp', 'cnt']].mean()
-    mean_holiday = holidays_df[['temp', 'cnt']].mean()
-
     # You can add more visualizations and analyses here
     st.write("Mean on working days:", mean_workingday)
     st.write("Mean on holidays:", mean_holiday)
