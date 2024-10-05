@@ -12,7 +12,7 @@ st.write("ID Dicoding: aleailearn")
 
 # Memuat Data
 st.write("Gathering Data")
-data = pd.read_csv('Bangkit7/Data/day.csv')
+data = pd.read_csv('Bangkit7/day.csv')
 
 # Memuat data dari kedua CSV
 df_day = pd.read_csv('data/day.csv')
