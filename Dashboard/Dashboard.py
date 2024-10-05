@@ -105,25 +105,6 @@ import streamlit as st
 # Memuat data
 df_day = pd.read_csv('Data/day.csv')
 
-# Menjawab pertanyaan 1
-st.subheader('Visualization & Explanatory Analysis')
-st.write("Pertanyaan 1: Bagaimana pengaruh suhu (temp) terhadap jumlah total sewa (cnt) pada hari kerja dibandingkan dengan hari libur?")
-
-# Pastikan kolom 'workingday' ada
-if 'workingday' not in df_day.columns:
-    st.error("Kolom 'workingday' tidak ditemukan dalam DataFrame.")
-else:
-    # Membagi data menjadi hari kerja dan hari libur
-    df_workingday = df_day[df_day['workingday'] == 1]
-    df_holiday = df_day[df_day['workingday'] == 0]
-
-    # Menghitung rata-rata suhu dan jumlah penyewaan per kategori
-    mean_workingday = df_workingday[['temp', 'cnt']].mean()
-    mean_holiday = df_holiday[['temp', 'cnt']].mean()
-
-    # Set style
-    sns.set(style="whitegrid")
-
     # Asumsikan df adalah DataFrame yang telah dimuat dengan data
     # df = pd.read_csv("your_data.csv") # Uncomment this line to load your dataset
 
@@ -185,6 +166,25 @@ else:
     st.subheader('Explore mean() methode df_day & df_hour')
     st.write("Dengan melakukan analisis ini, pengelola layanan penyewaan sepeda dapat merancang strategi yang lebih baik berdasarkan data. Misalnya, jika jumlah penyewaan meningkat pada hari kerja saat suhu naik, mereka mungkin ingin melakukan promosi khusus pada hari-hari tersebut untuk menarik lebih banyak pelanggan.")
     st.pyplot(fig)
+
+# Menjawab pertanyaan 1
+st.subheader('Visualization & Explanatory Analysis')
+st.write("Pertanyaan 1: Bagaimana pengaruh suhu (temp) terhadap jumlah total sewa (cnt) pada hari kerja dibandingkan dengan hari libur?")
+
+# Pastikan kolom 'workingday' ada
+if 'workingday' not in df_day.columns:
+    st.error("Kolom 'workingday' tidak ditemukan dalam DataFrame.")
+else:
+    # Membagi data menjadi hari kerja dan hari libur
+    df_workingday = df_day[df_day['workingday'] == 1]
+    df_holiday = df_day[df_day['workingday'] == 0]
+
+    # Menghitung rata-rata suhu dan jumlah penyewaan per kategori
+    mean_workingday = df_workingday[['temp', 'cnt']].mean()
+    mean_holiday = df_holiday[['temp', 'cnt']].mean()
+
+    # Set style
+    sns.set(style="whitegrid")
 
 
 import pandas as pd
