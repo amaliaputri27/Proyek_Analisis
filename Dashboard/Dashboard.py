@@ -17,18 +17,3 @@ data = pd.read_csv('Data/day.csv')
 df_day = pd.read_csv('Data/day.csv')
 df_hour = pd.read_csv('Data/hour.csv')
 
-# Menampilkan info singkat tentang dataset
-st.write("Data Day")
-st.write(df_day.head())
-
-st.write("Data Hour")
-st.write(df_hour.head())
-
-
-
-# Mengonversi kolom 'dteday' ke format datetime
-df_day['dteday'] = pd.to_datetime(df_day['dteday'])
-
-# Memeriksa tipe data setelah konversi
-print(df_day.dtypes)
-
