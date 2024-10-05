@@ -97,32 +97,27 @@ st.pyplot(plt)
 
 
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit as st
 
-# Memuat data
-df_day = pd.read_csv('Data/day.csv')
+# Load the dataset
+df = pd.read_csv("your_data.csv")  # Make sure to specify the correct path to your CSV file
 
-# Memisahkan data menjadi hari kerja dan hari libur
-if 'workingday' not in df_day.columns:
-    st.error("Kolom 'workingday' tidak ditemukan dalam DataFrame.")
+# Check if the 'holiday' column exists in the DataFrame
+if 'holiday' not in df.columns:
+    st.error("Kolom 'holiday' tidak ditemukan dalam DataFrame.")
 else:
-    df_workingday = df_day[df_day['workingday'] == 1]
-    df_holiday = df_day[df_day['workingday'] == 0]
-
-    # Menghitung rata-rata suhu dan jumlah penyewaan per kategori
-    mean_workingday = df_workingday[['temp', 'cnt']].mean()
-    mean_holiday = df_holiday[['temp', 'cnt']].mean()
+    # Memisahkan data berdasarkan hari kerja dan hari libur
+    workdays_df = df_day[df_day['holiday'] == 1]
+    holidays_df = df_day[df_day['holiday'] == 0]
 
     # Menghitung rata-rata suhu dan jumlah sewa
-    summary_df = df_day.groupby('workingday').agg({'temp': 'mean', 'cnt': 'mean'}).reset_index()
-    summary_df['workingday'] = summary_df['workingday'].map({0: 'Hari Libur', 1: 'Hari Kerja'})
+    summary_df = df.groupby('holiday').agg({'temp': 'mean', 'cnt': 'mean'}).reset_index()
+    summary_df['holiday'] = summary_df['holiday'].map({0: 'Hari Kerja', 1: 'Hari Libur'})
 
     # Menampilkan DataFrame summary
     st.write(summary_df)
-
     # Menambahkan offset untuk membuat bar bersanding
     bar_width = 0.35  # Lebar bar
     index = np.arange(2)  # Indeks posisi untuk kategori
