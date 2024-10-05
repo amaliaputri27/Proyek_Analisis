@@ -164,35 +164,45 @@ else:
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import streamlit as st
 
-# Memisahkan data berdasarkan hari kerja dan hari libur
-workdays_df = df[df['holiday'] == 0]
-holidays_df = df[df['holiday'] == 1]
+# Load the dataset
+df = pd.read_csv("your_data.csv")  # Make sure to specify the correct path to your CSV file
 
-# Menghitung rata-rata suhu dan jumlah sewa
-summary_df = df.groupby('holiday').agg({'temp': 'mean', 'cnt': 'mean'}).reset_index()
-summary_df['holiday'] = summary_df['holiday'].map({0: 'Hari Kerja', 1: 'Hari Libur'})
+# Check if the 'holiday' column exists in the DataFrame
+if 'holiday' not in df.columns:
+    st.error("Kolom 'holiday' tidak ditemukan dalam DataFrame.")
+else:
+    # Memisahkan data berdasarkan hari kerja dan hari libur
+    workdays_df = df[df['holiday'] == 0]
+    holidays_df = df[df['holiday'] == 1]
 
-# Menampilkan DataFrame
-print(summary_df)
+    # Menghitung rata-rata suhu dan jumlah sewa
+    summary_df = df.groupby('holiday').agg({'temp': 'mean', 'cnt': 'mean'}).reset_index()
+    summary_df['holiday'] = summary_df['holiday'].map({0: 'Hari Kerja', 1: 'Hari Libur'})
 
-plt.figure(figsize=(12, 6))
+    # Menampilkan DataFrame summary
+    st.write(summary_df)
 
-# Subplot untuk Suhu
-plt.subplot(1, 2, 1)
-sns.barplot(x='holiday', y='temp', data=summary_df, palette='coolwarm')
-plt.title('Rata-Rata Suhu pada Hari Kerja vs Hari Libur')
-plt.ylabel('Rata-Rata Suhu (°C)')
-plt.xlabel('Tipe Hari')
+    plt.figure(figsize=(12, 6))
 
-# Subplot untuk Jumlah Sewa
-plt.subplot(1, 2, 2)
-sns.barplot(x='holiday', y='cnt', data=summary_df, palette='coolwarm')
-plt.title('Rata-Rata Jumlah Sewa pada Hari Kerja vs Hari Libur')
-plt.ylabel('Rata-Rata Jumlah Sewa')
-plt.xlabel('Tipe Hari')
+    # Subplot untuk Suhu
+    plt.subplot(1, 2, 1)
+    sns.barplot(x='holiday', y='temp', data=summary_df, palette='coolwarm')
+    plt.title('Rata-Rata Suhu pada Hari Kerja vs Hari Libur')
+    plt.ylabel('Rata-Rata Suhu (°C)')
+    plt.xlabel('Tipe Hari')
 
-plt.tight_layout()
-plt.show()
+    # Subplot untuk Jumlah Sewa
+    plt.subplot(1, 2, 2)
+    sns.barplot(x='holiday', y='cnt', data=summary_df, palette='coolwarm')
+    plt.title('Rata-Rata Jumlah Sewa pada Hari Kerja vs Hari Libur')
+    plt.ylabel('Rata-Rata Jumlah Sewa')
+    plt.xlabel('Tipe Hari')
+
+    plt.tight_layout()
+
+    # Display the plots in Streamlit
+    st.pyplot(plt)
 
 
