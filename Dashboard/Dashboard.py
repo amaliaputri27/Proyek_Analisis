@@ -1,4 +1,3 @@
-
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -106,11 +105,13 @@ import streamlit as st
 # Memuat data
 df_day = pd.read_csv('Data/day.csv')
 
-# Pastikan kolom 'workingday' ada
+    # Asumsikan df adalah DataFrame yang telah dimuat dengan data
+    # df = pd.read_csv("your_data.csv") # Uncomment this line to load your dataset
+
+    # Memisahkan data menjadi hari kerja dan hari libur
 if 'workingday' not in df_day.columns:
     st.error("Kolom 'workingday' tidak ditemukan dalam DataFrame.")
 else:
-    # Membagi data menjadi hari kerja dan hari libur
     df_workingday = df_day[df_day['workingday'] == 1]
     df_holiday = df_day[df_day['workingday'] == 0]
 
@@ -118,8 +119,13 @@ else:
     mean_workingday = df_workingday[['temp', 'cnt']].mean()
     mean_holiday = df_holiday[['temp', 'cnt']].mean()
 
-    # Set style
-    sns.set(style="whitegrid")
+    # Menghitung rata-rata suhu dan jumlah sewa
+    summary_df = df_day.groupby('workingday').agg({'temp': 'mean', 'cnt': 'mean'}).reset_index()
+    summary_df['workingday'] = summary_df['workingday'].map({0: 'Hari Libur', 1: 'Hari Kerja'})
+
+    # Menampilkan DataFrame summary
+    st.write(summary_df)
+
 
     # Menambahkan offset untuk membuat bar bersanding
     bar_width = 0.35  # Lebar bar
@@ -157,4 +163,77 @@ else:
         ax1.text(bar.get_x() + bar.get_width() / 2, yval, int(yval), ha='center', va='bottom')
 
     # Tampilkan plot di Streamlit
+    st.subheader('Explore mean() methode df_day & df_hour')
+    st.write("Dengan melakukan analisis ini, pengelola layanan penyewaan sepeda dapat merancang strategi yang lebih baik berdasarkan data. Misalnya, jika jumlah penyewaan meningkat pada hari kerja saat suhu naik, mereka mungkin ingin melakukan promosi khusus pada hari-hari tersebut untuk menarik lebih banyak pelanggan.")
     st.pyplot(fig)
+
+# Menjawab pertanyaan 1
+st.subheader('Visualization & Explanatory Analysis')
+st.write("Pertanyaan 1: Bagaimana pengaruh suhu (temp) terhadap jumlah total sewa (cnt) pada hari kerja dibandingkan dengan hari libur?")
+
+# Pastikan kolom 'workingday' ada
+if 'workingday' not in df_day.columns:
+    st.error("Kolom 'workingday' tidak ditemukan dalam DataFrame.")
+else:
+    # Membagi data menjadi hari kerja dan hari libur
+    df_workingday = df_day[df_day['workingday'] == 1]
+    df_holiday = df_day[df_day['workingday'] == 0]
+
+    # Menghitung rata-rata suhu dan jumlah penyewaan per kategori
+    mean_workingday = df_workingday[['temp', 'cnt']].mean()
+    mean_holiday = df_holiday[['temp', 'cnt']].mean()
+
+    # Set style
+    sns.set(style="whitegrid")
+
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import streamlit as st
+
+# Load the dataset
+df = pd.read_csv("Data/day.csv")  # Make sure to specify the correct path to your CSV file
+df = pd.read_csv("Data/hour.csv") 
+
+# Check if the 'holiday' column exists in the DataFrame
+if 'holiday' not in df.columns:
+    st.error("Kolom 'holiday' tidak ditemukan dalam DataFrame.")
+else:
+    # Memisahkan data berdasarkan hari kerja dan hari libur
+    workdays_df = df[df['holiday'] == 0]
+    holidays_df = df[df['holiday'] == 1]
+
+    # Menghitung rata-rata suhu dan jumlah sewa
+    summary_df = df.groupby('holiday').agg({'temp': 'mean', 'cnt': 'mean'}).reset_index()
+    summary_df['holiday'] = summary_df['holiday'].map({0: 'Hari Kerja', 1: 'Hari Libur'})
+
+    # Menampilkan DataFrame summary
+    st.write(summary_df)
+
+    plt.figure(figsize=(12, 6))
+
+    # Subplot untuk Suhu
+    plt.subplot(1, 2, 1)
+    sns.barplot(x='holiday', y='temp', data=summary_df, palette='coolwarm')
+    plt.title('Rata-Rata Suhu pada Hari Kerja vs Hari Libur')
+    plt.ylabel('Rata-Rata Suhu (°C)')
+    plt.xlabel('Tipe Hari')
+
+    # Subplot untuk Jumlah Sewa
+    plt.subplot(1, 2, 2)
+    sns.barplot(x='holiday', y='cnt', data=summary_df, palette='coolwarm')
+    plt.title('Rata-Rata Jumlah Sewa pada Hari Kerja vs Hari Libur')
+    plt.ylabel('Rata-Rata Jumlah Sewa')
+    plt.xlabel('Tipe Hari')
+
+    plt.tight_layout()
+
+    # Display the plots in Streamlit
+    st.pyplot(plt)
+
+    # Jawaban
+    st.write("Dari visualisasi di atas, kita dapat menarik beberapa kesimpulan:")
+    st.write("- Rata-Rata Suhu: Rata-rata suhu pada hari kerja dan hari libur dapat berbeda secara signifikan. Perhatikan apakah hari libur memiliki suhu yang lebih tinggi atau lebih rendah.")
+    st.write("- Rata-Rata Jumlah Sewa: Rata-rata jumlah sewa pada hari kerja mungkin lebih tinggi dibandingkan dengan hari libur atau sebaliknya. Ini bisa mengindikasikan pengaruh suhu terhadap perilaku penyewa, di mana suhu yang lebih tinggi mungkin meningkatkan jumlah sewa, baik pada hari kerja maupun hari libur.")
+    
