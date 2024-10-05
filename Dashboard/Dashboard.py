@@ -105,16 +105,6 @@ import streamlit as st
 # Memuat data
 df_day = pd.read_csv('Data/day.csv')
 
-    # Asumsikan df adalah DataFrame yang telah dimuat dengan data
-    # df = pd.read_csv("your_data.csv") # Uncomment this line to load your dataset
-
-    # Memisahkan data menjadi hari kerja dan hari libur
-if 'workingday' not in df_day.columns:
-    st.error("Kolom 'workingday' tidak ditemukan dalam DataFrame.")
-else:
-    df_workingday = df_day[df_day['workingday'] == 1]
-    df_holiday = df_day[df_day['workingday'] == 0]
-
     # Menghitung rata-rata suhu dan jumlah penyewaan per kategori
     mean_workingday = df_workingday[['temp', 'cnt']].mean()
     mean_holiday = df_holiday[['temp', 'cnt']].mean()
@@ -185,6 +175,16 @@ else:
 
     # Set style
     sns.set(style="whitegrid")
+
+    # Asumsikan df adalah DataFrame yang telah dimuat dengan data
+
+    # Memisahkan data menjadi hari kerja dan hari libur
+if 'workingday' not in df_day.columns:
+    st.error("Kolom 'workingday' tidak ditemukan dalam DataFrame.")
+else:
+    df_workingday = df_day[df_day['workingday'] == 1]
+    df_holiday = df_day[df_day['workingday'] == 0]
+
 
 
 import pandas as pd
