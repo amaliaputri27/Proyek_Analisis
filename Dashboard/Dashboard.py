@@ -105,6 +105,10 @@ import streamlit as st
 # Memuat data
 df_day = pd.read_csv('Data/day.csv')
 
+# Menjawab pertanyaan 1
+st.subheader('Visualization & Explanatory Analysis')
+st.write("Pertanyaan 1: "Bagaimana pengaruh suhu (temp) terhadap jumlah total sewa (cnt) pada hari kerja dibandingkan dengan hari libur?"")
+
 # Pastikan kolom 'workingday' ada
 if 'workingday' not in df_day.columns:
     st.error("Kolom 'workingday' tidak ditemukan dalam DataFrame.")
@@ -119,6 +123,20 @@ else:
 
     # Set style
     sns.set(style="whitegrid")
+
+    # Asumsikan df adalah DataFrame yang telah dimuat dengan data
+    # df = pd.read_csv("your_data.csv") # Uncomment this line to load your dataset
+
+    # Memisahkan data berdasarkan hari kerja dan hari libur
+    workdays_df = df[df['holiday'] == 0]
+    holidays_df = df[df['holiday'] == 1]
+
+    # Menghitung rata-rata suhu dan jumlah sewa
+    summary_df = df.groupby('holiday').agg({'temp': 'mean', 'cnt': 'mean'}).reset_index()
+    summary_df['holiday'] = summary_df['holiday'].map({0: 'Hari Kerja', 1: 'Hari Libur'})
+
+    # Menampilkan DataFrame
+    summary_df
 
     # Menambahkan offset untuk membuat bar bersanding
     bar_width = 0.35  # Lebar bar
@@ -205,5 +223,11 @@ else:
 
     # Display the plots in Streamlit
     st.pyplot(plt)
+
+    # Jawaban
+    st.write("Dari visualisasi di atas, kita dapat menarik beberapa kesimpulan:
+
+Rata-Rata Suhu: Rata-rata suhu pada hari kerja dan hari libur dapat berbeda secara signifikan. Perhatikan apakah hari libur memiliki suhu yang lebih tinggi atau lebih rendah.
+Rata-Rata Jumlah Sewa: Rata-rata jumlah sewa pada hari kerja mungkin lebih tinggi dibandingkan dengan hari libur atau sebaliknya. Ini bisa mengindikasikan pengaruh suhu terhadap perilaku penyewa, di mana suhu yang lebih tinggi mungkin meningkatkan jumlah sewa, baik pada hari kerja maupun hari libur.")
 
 
