@@ -156,7 +156,7 @@ else:
         ax1.text(bar.get_x() + bar.get_width() / 2, yval, int(yval), ha='center', va='bottom')
 
     # Tampilkan plot di Streamlit
-st.subheader('Explore mean() methode df_day adn _df_hour')
-st.write("Dengan melakukan analisis ini, pengelola layanan penyewaan sepeda dapat merancang strategi yang lebih baik berdasarkan data. Misalnya, jika jumlah penyewaan meningkat pada hari kerja saat suhu naik, mereka mungkin ingin melakukan promosi khusus pada hari-hari tersebut untuk menarik lebih banyak pelanggan.")
+    st.subheader('Explore mean() methode df_day adn _df_hour')
+    st.write("Dengan melakukan analisis ini, pengelola layanan penyewaan sepeda dapat merancang strategi yang lebih baik berdasarkan data. Misalnya, jika jumlah penyewaan meningkat pada hari kerja saat suhu naik, mereka mungkin ingin melakukan promosi khusus pada hari-hari tersebut untuk menarik lebih banyak pelanggan.")
     st.pyplot(fig)
 
