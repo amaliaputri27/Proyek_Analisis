@@ -13,5 +13,5 @@ st.write("ID Dicoding: aleailearn")
 # Exploratory Data Analysis (EDA)
 st.title("Exploratory Data Analysis (EDA)")
 
-day.sample(frac=1) # Sample all rows (100%) from the DataFrame
+Data/day.csv.sample(frac=1) # Sample all rows (100%) from the DataFrame
 
