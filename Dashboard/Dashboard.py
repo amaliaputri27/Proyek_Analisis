@@ -122,18 +122,14 @@ fig, ax1 = plt.subplots(figsize=(10, 6))
 df_workingday = df[df['holiday'] == 0]
 df_holiday = df[df['holiday'] == 1]
 
-# Menghitung rata-rata suhu dan jumlah penyewaan per kategori
-mean_workingday = df_workingday[['temp', 'cnt']].mean()
-mean_holiday = df_holiday[['temp', 'cnt']].mean()
-
 # Plot untuk 'cnt' (Jumlah Penyewaan)
-bars1 = ax1.bar(index[0] - bar_width / 2, mean_holiday['cnt'], bar_width, color='blue', label='Jumlah Penyewaan (Hari Libur)', alpha=0.6)
-bars2 = ax1.bar(index[1] - bar_width / 2, mean_workingday['cnt'], bar_width, color='green', label='Jumlah Penyewaan (Hari Kerja)', alpha=0.6)
+bars1 = ax1.bar(index[0] - bar_width / 2, summary_df.loc[summary_df['holiday'] == 'Hari Libur', 'cnt'].values[0], bar_width, color='blue', label='Jumlah Penyewaan (Hari Libur)', alpha=0.6)
+bars2 = ax1.bar(index[1] - bar_width / 2, summary_df.loc[summary_df['holiday'] == 'Hari Kerja', 'cnt'].values[0], bar_width, color='green', label='Jumlah Penyewaan (Hari Kerja)', alpha=0.6)
 
 # Membuat sumbu y kedua untuk 'temp' (Suhu)
 ax2 = ax1.twinx()
-ax2.bar(index[0] + bar_width / 2, mean_holiday['temp'], bar_width, color='orange', label='Suhu (Hari Libur)', alpha=0.9)
-ax2.bar(index[1] + bar_width / 2, mean_workingday['temp'], bar_width, color='red', label='Suhu (Hari Kerja)', alpha=0.9)
+ax2.bar(index[0] + bar_width / 2, summary_df.loc[summary_df['holiday'] == 'Hari Libur', 'temp'].values[0], bar_width, color='orange', label='Suhu (Hari Libur)', alpha=0.9)
+ax2.bar(index[1] + bar_width / 2, summary_df.loc[summary_df['holiday'] == 'Hari Kerja', 'temp'].values[0], bar_width, color='red', label='Suhu (Hari Kerja)', alpha=0.9)
 
 # Menambahkan label, judul, dan legend
 plt.title('Rata-rata Suhu dan Jumlah Penyewaan pada Hari Kerja dan Hari Libur', fontsize=16)
