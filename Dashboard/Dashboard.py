@@ -105,7 +105,6 @@ import streamlit as st
 df_day = pd.read_csv('Data/day.csv')
 
     # Menambahkan offset untuk membuat bar bersanding
-    width_bar = 0.35  # Lebar bar
     index = np.arange(2)  # Indeks posisi untuk kategori
 
     # Bar plot untuk hari kerja dan hari libur
