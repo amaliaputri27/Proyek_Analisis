@@ -20,7 +20,7 @@ df_day = pd.read_csv('Data/day.csv')
 df_day_sample = df_day.sample(frac=1)
 
 # Descriptive statistics for DAY
-st.subheader('Descriptive Statistics for DAY Data')
+st.subheader('Descriptive Statistics for day Data')
 st.write("Statistika deskriptif dilakukan untuk memahami karakteristik data, termasuk ukuran pusat, penyebaran, dan pola.")
 day_stats = df_day_sample.describe(include='all')
 st.write(day_stats)
@@ -35,6 +35,7 @@ st.pyplot(fig)
 
 # Plot histogram with seaborn for 'cnt' column
 st.subheader('Distribusi Kolom cnt')
+st.write("Analisis distribusi kolom 'cnt' memberikan wawasan yang berguna untuk pengambilan keputusan strategis dalam konteks penyewaan.")
 fig2, ax2 = plt.subplots(figsize=(8, 6))
 sns.histplot(df_day_sample['cnt'], kde=True, ax=ax2)
 ax2.set_title('Distribusi Kolom cnt')
