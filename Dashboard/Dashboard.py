@@ -11,6 +11,12 @@ st.write("Email: m384b4kx0446@bangkit.academy")
 st.write("ID Dicoding: aleailearn")
 
 
+# Memuat data
+df_day = pd.read_csv('Data/day.csv')
+
+# Pastikan kolom 'workingday' ada
+if 'workingday' not in df_day.columns:
+    raise ValueError("Kolom 'workingday' tidak ditemukan dalam DataFrame.")
 
 # Membagi data menjadi hari kerja dan hari libur
 df_workingday = df_day[df_day['workingday'] == 1]
