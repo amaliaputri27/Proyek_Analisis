@@ -11,7 +11,6 @@ st.write("Email: m384b4kx0446@bangkit.academy")
 st.write("ID Dicoding: aleailearn")
 
 # Memuat Data
-st.write("Gathering Data")
 data = pd.read_csv('Data/day.csv')
 
 # Memuat kedua data CSV
@@ -25,13 +24,7 @@ st.write(df_day.head())
 st.write("Data Hour")
 st.write(df_hour.head())
 
-# Menggabungkan data berdasarkan kolom 'dteday'
-df_merged = pd.merge(df_day, df_hour, on='dteday')
 
-st.write("Assesing Data")
-# Menilai data df_day
-
-df_day.info()
 
 # Mengonversi kolom 'dteday' ke format datetime
 df_day['dteday'] = pd.to_datetime(df_day['dteday'])
