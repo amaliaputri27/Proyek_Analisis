@@ -362,18 +362,20 @@ else:
         # Menghitung Recency
         recency = df.groupby('dteday')['dteday'].max().reset_index()
         recency['recency'] = (df['dteday'].max() - recency['dteday']).dt.days
+        recency.rename(columns={'dteday': 'date'}, inplace=True)  # Ganti nama kolom untuk penggabungan
 
         # Menghitung Frequency
         frequency = df.groupby('dteday')['cnt'].count().reset_index()
-        frequency.columns = ['dteday', 'frequency']
+        frequency.columns = ['date', 'frequency']  # Ganti nama kolom untuk penggabungan
 
         # Menghitung Monetary
         monetary = df.groupby('dteday')[['casual', 'registered']].sum().reset_index()
         monetary['monetary'] = monetary['casual'] + monetary['registered']
+        monetary.rename(columns={'dteday': 'date'}, inplace=True)  # Ganti nama kolom untuk penggabungan
 
         # Menggabungkan hasil RFM
-        rfm = pd.merge(recency, frequency, on='dteday')
-        rfm = pd.merge(rfm, monetary, on='dteday')
+        rfm = pd.merge(recency, frequency, on='date')
+        rfm = pd.merge(rfm, monetary, on='date')
 
         # Menampilkan hasil RFM di Streamlit
         st.title('Analisis RFM')
@@ -396,7 +398,6 @@ else:
 
     except Exception as e:
         st.error(f"Terjadi kesalahan dalam analisis RFM: {e}")
-
 
 # kesimpulan
 st.subheader("Kesimpulan dari Analisis RFM yang telah saya lakukan:")
