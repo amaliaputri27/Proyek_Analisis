@@ -384,8 +384,6 @@ plt.grid()
 st.pyplot(plt)
 
 # kesimpulan
-st.subheader("Kesimpulan dari Analisis RFM yamng saya lakukan:")
-st.write("Kesimpulan dari analisis RFM yang telah dilakukan adalah sebagai berikut:
-
-Analisis RFM (Recency, Frequency, Monetary) bertujuan untuk mengidentifikasi dan memahami perilaku pelanggan berdasarkan seberapa baru mereka melakukan transaksi, seberapa sering mereka berbelanja, dan berapa banyak yang mereka belanjakan. Meskipun hasil analisis menunjukkan bahwa hanya ada satu entri dalam DataFrame RFM, yang menandakan kurangnya variasi dalam data pelanggan, analisis ini tetap relevan sebagai langkah awal untuk menggali wawasan pelanggan. Dengan informasi ini, bisnis dapat memfokuskan upaya pemasaran untuk meningkatkan retensi pelanggan dan memaksimalkan pendapatan. Dalam konteks ini, meskipun data saat ini terbatas, analisis RFM dapat dijadikan alat untuk merencanakan strategi yang lebih baik di masa depan, terutama ketika lebih banyak data tersedia.")
+st.subheader("Kesimpulan dari Analisis RFM yang telah saya lakukan:")
+st.write("Analisis RFM (Recency, Frequency, Monetary) bertujuan untuk mengidentifikasi dan memahami perilaku pelanggan berdasarkan seberapa baru mereka melakukan transaksi, seberapa sering mereka berbelanja, dan berapa banyak yang mereka belanjakan. Meskipun hasil analisis menunjukkan bahwa hanya ada satu entri dalam DataFrame RFM, yang menandakan kurangnya variasi dalam data pelanggan, analisis ini tetap relevan sebagai langkah awal untuk menggali wawasan pelanggan. Dengan informasi ini, bisnis dapat memfokuskan upaya pemasaran untuk meningkatkan retensi pelanggan dan memaksimalkan pendapatan. Dalam konteks ini, meskipun data saat ini terbatas, analisis RFM dapat dijadikan alat untuk merencanakan strategi yang lebih baik di masa depan, terutama ketika lebih banyak data tersedia.")
 
