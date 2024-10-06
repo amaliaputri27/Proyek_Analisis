@@ -334,3 +334,58 @@ st.write("3. Pengembangan Aplikasi yang Ramah Cuaca: Ciptakan fitur dalam aplika
 st.write("4. Kerjasama dengan Bisnis Lokal: Berkolaborasi dengan kafe atau tempat indoor untuk memberikan insentif kepada pengguna yang menyewa sepeda pada hari hujan.")
 
 st.write("5. Strategi Pengiklanan: Fokus pada iklan yang menyoroti bagaimana menggunakan sepeda bisa menjadi solusi alternatif untuk tetap aktif bahkan ketika cuaca kurang baik.")
+
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+import streamlit as st
+
+# Load your data into the DataFrame df
+# df = pd.read_csv('path_to_your_data.csv')  # Uncomment and set the path to your dataset
+
+# Pastikan kolom dteday dalam format datetime
+df['dteday'] = pd.to_datetime(df['dteday'])
+
+# RFM Analysis
+
+# Menghitung Recency
+recency = df.groupby('customer_id')['dteday'].max().reset_index()
+recency['recency'] = (df['dteday'].max() - recency['dteday']).dt.days
+
+# Menghitung Frequency
+frequency = df.groupby('customer_id')['cnt'].count().reset_index()
+frequency.columns = ['customer_id', 'frequency']
+
+# Menghitung Monetary
+monetary = df.groupby('customer_id')[['casual', 'registered']].sum().reset_index()
+monetary['monetary'] = monetary['casual'] + monetary['registered']
+
+# Menggabungkan hasil RFM
+rfm = pd.merge(recency, frequency, on='customer_id')
+rfm = pd.merge(rfm, monetary, on='customer_id')
+
+# Menampilkan hasil RFM di Streamlit
+st.title('RFM Analysis')
+st.write("Hasil analisis RFM:")
+st.dataframe(rfm)
+
+# Periksa apakah DataFrame tidak kosong
+st.write("Jumlah baris dalam rfm:", rfm.shape[0])
+
+# Membuat scatter plot
+plt.figure(figsize=(12, 6))
+sns.scatterplot(data=rfm, x='recency', y='monetary', size='frequency', sizes=(20, 200), alpha=0.5)
+plt.title('Scatter Plot of Recency vs Monetary')
+plt.xlabel('Recency (Days)')
+plt.ylabel('Monetary (Total Casual + Registered)')
+plt.grid()
+
+# Menampilkan plot di Streamlit
+st.pyplot(plt)
+
+# kesimpulan
+st.subheader("Kesimpulan dari Analisis RFM yamng saya lakukan:")
+st.write("Kesimpulan dari analisis RFM yang telah dilakukan adalah sebagai berikut:
+
+Analisis RFM (Recency, Frequency, Monetary) bertujuan untuk mengidentifikasi dan memahami perilaku pelanggan berdasarkan seberapa baru mereka melakukan transaksi, seberapa sering mereka berbelanja, dan berapa banyak yang mereka belanjakan. Meskipun hasil analisis menunjukkan bahwa hanya ada satu entri dalam DataFrame RFM, yang menandakan kurangnya variasi dalam data pelanggan, analisis ini tetap relevan sebagai langkah awal untuk menggali wawasan pelanggan. Dengan informasi ini, bisnis dapat memfokuskan upaya pemasaran untuk meningkatkan retensi pelanggan dan memaksimalkan pendapatan. Dalam konteks ini, meskipun data saat ini terbatas, analisis RFM dapat dijadikan alat untuk merencanakan strategi yang lebih baik di masa depan, terutama ketika lebih banyak data tersedia.")
+
