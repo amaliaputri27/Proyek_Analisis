@@ -16,4 +16,5 @@ pip install -r requirements.txt
 ## Run steamlit app
 ```
 streamlit run dashboard.py
+https://learningby.streamlit.app/
 ```
