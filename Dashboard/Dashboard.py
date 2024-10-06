@@ -335,6 +335,10 @@ st.write("4. Kerjasama dengan Bisnis Lokal: Berkolaborasi dengan kafe atau tempa
 
 st.write("5. Strategi Pengiklanan: Fokus pada iklan yang menyoroti bagaimana menggunakan sepeda bisa menjadi solusi alternatif untuk tetap aktif bahkan ketika cuaca kurang baik.")
 
+# kesimpulan
+st.subheader("Kesimpulan dari Analisis RFM yang telah saya lakukan:")
+st.write("Analisis RFM (Recency, Frequency, Monetary) bertujuan untuk mengidentifikasi dan memahami perilaku pelanggan berdasarkan seberapa baru mereka melakukan transaksi, seberapa sering mereka berbelanja, dan berapa banyak yang mereka belanjakan. Meskipun hasil analisis menunjukkan bahwa hanya ada satu entri dalam DataFrame RFM, yang menandakan kurangnya variasi dalam data pelanggan, analisis ini tetap relevan sebagai langkah awal untuk menggali wawasan pelanggan. Dengan informasi ini, bisnis dapat memfokuskan upaya pemasaran untuk meningkatkan retensi pelanggan dan memaksimalkan pendapatan. Dalam konteks ini, meskipun data saat ini terbatas, analisis RFM dapat dijadikan alat untuk merencanakan strategi yang lebih baik di masa depan, terutama ketika lebih banyak data tersedia.")
+
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -350,13 +354,13 @@ df['dteday'] = pd.to_datetime(df['dteday'])
 if df.empty:
     st.error("DataFrame is empty. Please check your data.")
 else:
-    st.write("Kolom dalam DataFrame:", df.columns)
-    st.write("Tipe data dalam DataFrame:", df.dtypes)
-    st.write(df.head())
-
+    # Tampilkan data awal
+    st.write("DataFrame pertama:")
+    st.dataframe(df.head())
+    
     # RFM Analysis
-    # Menghitung Recency
     try:
+        # Menghitung Recency
         recency = df.groupby('customer_id')['dteday'].max().reset_index()
         recency['recency'] = (df['dteday'].max() - recency['dteday']).dt.days
 
@@ -373,7 +377,7 @@ else:
         rfm = pd.merge(rfm, monetary, on='customer_id')
 
         # Menampilkan hasil RFM di Streamlit
-        st.title('RFM Analysis')
+        st.title('Analisis RFM')
         st.write("Hasil analisis RFM:")
         st.dataframe(rfm)
 
@@ -391,10 +395,6 @@ else:
         # Menampilkan plot di Streamlit
         st.pyplot(plt)
 
-    except KeyError as e:
-        st.error(f"KeyError: {e}")
-
-# kesimpulan
-st.subheader("Kesimpulan dari Analisis RFM yang telah saya lakukan:")
-st.write("Analisis RFM (Recency, Frequency, Monetary) bertujuan untuk mengidentifikasi dan memahami perilaku pelanggan berdasarkan seberapa baru mereka melakukan transaksi, seberapa sering mereka berbelanja, dan berapa banyak yang mereka belanjakan. Meskipun hasil analisis menunjukkan bahwa hanya ada satu entri dalam DataFrame RFM, yang menandakan kurangnya variasi dalam data pelanggan, analisis ini tetap relevan sebagai langkah awal untuk menggali wawasan pelanggan. Dengan informasi ini, bisnis dapat memfokuskan upaya pemasaran untuk meningkatkan retensi pelanggan dan memaksimalkan pendapatan. Dalam konteks ini, meskipun data saat ini terbatas, analisis RFM dapat dijadikan alat untuk merencanakan strategi yang lebih baik di masa depan, terutama ketika lebih banyak data tersedia.")
+    except Exception as e:
+        st.error(f"Terjadi kesalahan dalam analisis RFM: {e}")
 
