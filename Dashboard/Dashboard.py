@@ -346,42 +346,53 @@ import streamlit as st
 # Pastikan kolom dteday dalam format datetime
 df['dteday'] = pd.to_datetime(df['dteday'])
 
-# RFM Analysis
-
-# Menghitung Recency
-recency = df.groupby('customer_id')['dteday'].max().reset_index()
-recency['recency'] = (df['dteday'].max() - recency['dteday']).dt.days
-
-# Menghitung Frequency
-frequency = df.groupby('customer_id')['cnt'].count().reset_index()
-frequency.columns = ['customer_id', 'frequency']
-
-# Menghitung Monetary
-monetary = df.groupby('customer_id')[['casual', 'registered']].sum().reset_index()
-monetary['monetary'] = monetary['casual'] + monetary['registered']
-
-# Menggabungkan hasil RFM
-rfm = pd.merge(recency, frequency, on='customer_id')
-rfm = pd.merge(rfm, monetary, on='customer_id')
-
-# Menampilkan hasil RFM di Streamlit
-st.title('RFM Analysis')
-st.write("Hasil analisis RFM:")
-st.dataframe(rfm)
-
 # Periksa apakah DataFrame tidak kosong
-st.write("Jumlah baris dalam rfm:", rfm.shape[0])
+if df.empty:
+    st.error("DataFrame is empty. Please check your data.")
+else:
+    st.write("Kolom dalam DataFrame:", df.columns)
+    st.write("Tipe data dalam DataFrame:", df.dtypes)
+    st.write(df.head())
 
-# Membuat scatter plot
-plt.figure(figsize=(12, 6))
-sns.scatterplot(data=rfm, x='recency', y='monetary', size='frequency', sizes=(20, 200), alpha=0.5)
-plt.title('Scatter Plot of Recency vs Monetary')
-plt.xlabel('Recency (Days)')
-plt.ylabel('Monetary (Total Casual + Registered)')
-plt.grid()
+    # RFM Analysis
+    # Menghitung Recency
+    try:
+        recency = df.groupby('customer_id')['dteday'].max().reset_index()
+        recency['recency'] = (df['dteday'].max() - recency['dteday']).dt.days
 
-# Menampilkan plot di Streamlit
-st.pyplot(plt)
+        # Menghitung Frequency
+        frequency = df.groupby('customer_id')['cnt'].count().reset_index()
+        frequency.columns = ['customer_id', 'frequency']
+
+        # Menghitung Monetary
+        monetary = df.groupby('customer_id')[['casual', 'registered']].sum().reset_index()
+        monetary['monetary'] = monetary['casual'] + monetary['registered']
+
+        # Menggabungkan hasil RFM
+        rfm = pd.merge(recency, frequency, on='customer_id')
+        rfm = pd.merge(rfm, monetary, on='customer_id')
+
+        # Menampilkan hasil RFM di Streamlit
+        st.title('RFM Analysis')
+        st.write("Hasil analisis RFM:")
+        st.dataframe(rfm)
+
+        # Menampilkan jumlah baris dalam rfm
+        st.write("Jumlah baris dalam rfm:", rfm.shape[0])
+
+        # Membuat scatter plot
+        plt.figure(figsize=(12, 6))
+        sns.scatterplot(data=rfm, x='recency', y='monetary', size='frequency', sizes=(20, 200), alpha=0.5)
+        plt.title('Scatter Plot of Recency vs Monetary')
+        plt.xlabel('Recency (Days)')
+        plt.ylabel('Monetary (Total Casual + Registered)')
+        plt.grid()
+
+        # Menampilkan plot di Streamlit
+        st.pyplot(plt)
+
+    except KeyError as e:
+        st.error(f"KeyError: {e}")
 
 # kesimpulan
 st.subheader("Kesimpulan dari Analisis RFM yang telah saya lakukan:")
